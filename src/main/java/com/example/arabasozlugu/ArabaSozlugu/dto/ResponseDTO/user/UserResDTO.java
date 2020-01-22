@@ -19,4 +19,10 @@ public class UserResDTO {
 	private String  pass;
 	private Set<CarResDTO> cars = new HashSet<CarResDTO>();
 	private Set<PostResDTO> posts = new HashSet<PostResDTO>();
+	
+	public void setPostsUserId() {
+		for(PostResDTO p : posts) {
+			p.setUserId();
+		}
+	}
 }

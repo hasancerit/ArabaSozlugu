@@ -30,7 +30,7 @@ public class Car {
 	private String beygir;
 	private String yas;
 
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {},fetch = FetchType.LAZY)
 	@JoinColumn
 	private User user;
 	

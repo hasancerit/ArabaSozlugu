@@ -15,6 +15,10 @@ public class PostResDTO {
 	private String fiyat;
 	@JsonIgnore
 	private User user;
-	
+	private String userId;
 	private CarResDTO car;
+	
+	public void setUserId() {
+		userId = user.getId();
+	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,7 +31,11 @@ public class Post {
 	private String aciklama;
 	private String fiyat;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@Transient
+	private String userId;
+	
+	@ManyToOne(fetch = FetchType.LAZY,cascade = {})
 	@JoinColumn
 	@JsonManagedReference
 	private User user;
