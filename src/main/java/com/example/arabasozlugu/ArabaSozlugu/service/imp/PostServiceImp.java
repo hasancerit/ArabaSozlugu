@@ -1,7 +1,9 @@
 package com.example.arabasozlugu.ArabaSozlugu.service.imp;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,5 +90,19 @@ public class PostServiceImp implements PostService{
 		PostResDTO ret = modelMapper.map(yeni,PostResDTO.class);
 		ret.setUserId();
 		return ret;
+	}
+
+	@Override
+	public List<PostResDTO> getPostsByUser(String userId) {
+		User user = userRepo.findById(userId).get();
+		Set<Post> postSet = user.getPosts();
+		List<PostResDTO> list = new ArrayList<PostResDTO>();
+		
+		for(Post p : postSet) {
+			PostResDTO prd = modelMapper.map(p,PostResDTO.class);
+			prd.setUserId();
+			list.add(prd);
+		}
+		return list;
 	}
 }

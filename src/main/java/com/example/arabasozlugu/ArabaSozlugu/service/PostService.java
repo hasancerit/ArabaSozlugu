@@ -17,4 +17,6 @@ public interface PostService {
 
 	PostResDTO update(String id, PostReqDTO post);
 
+	List<PostResDTO> getPostsByUser(String userId);
+
 }
