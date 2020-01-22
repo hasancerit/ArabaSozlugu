@@ -10,8 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@EqualsAndHashCode(exclude = {"user","post"})
+@Setter
+@Getter
 @Entity
 public class Car {
 	@Id

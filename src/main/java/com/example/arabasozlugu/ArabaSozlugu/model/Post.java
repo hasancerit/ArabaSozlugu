@@ -14,8 +14,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@EqualsAndHashCode(exclude = {"user","car"})
+@Setter
+@Getter
 @Entity
 public class Post {
 	@Id

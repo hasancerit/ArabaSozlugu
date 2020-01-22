@@ -1,7 +1,9 @@
-package com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO;
+package com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.post;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
+import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.car.CarReqDTO;
 
 import lombok.Data;
 

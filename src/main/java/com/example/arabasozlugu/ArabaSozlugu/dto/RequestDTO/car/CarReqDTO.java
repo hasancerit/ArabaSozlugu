@@ -1,4 +1,4 @@
-package com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO;
+package com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.car;
 
 import javax.validation.constraints.NotNull;
 

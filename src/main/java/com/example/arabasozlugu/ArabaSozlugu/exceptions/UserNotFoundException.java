@@ -1,6 +1,6 @@
 package com.example.arabasozlugu.ArabaSozlugu.exceptions;
 
-import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.LoginUserReqDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.LoginUserReqDTO;
 
 import lombok.Data;
 

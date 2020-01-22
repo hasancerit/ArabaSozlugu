@@ -1,4 +1,4 @@
-package com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO;
+package com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user;
 
 
 import javax.validation.constraints.NotNull;
@@ -6,11 +6,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class SingupUserReqDTO {
-	
-	@NotNull
-	private String name;
-
+public class LoginUserReqDTO {
 	@NotNull
 	private String user;
 

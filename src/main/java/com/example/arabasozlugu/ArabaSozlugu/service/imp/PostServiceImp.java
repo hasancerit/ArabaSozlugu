@@ -4,9 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.PostReqDTO;
-import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.PostResDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.post.PostReqDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.post.PostResDTO;
 import com.example.arabasozlugu.ArabaSozlugu.model.Post;
+import com.example.arabasozlugu.ArabaSozlugu.model.User;
 import com.example.arabasozlugu.ArabaSozlugu.repo.PostRepo;
 import com.example.arabasozlugu.ArabaSozlugu.repo.UserRepo;
 import com.example.arabasozlugu.ArabaSozlugu.service.PostService;
@@ -27,7 +28,9 @@ public class PostServiceImp implements PostService{
 	@Override
 	public PostResDTO addPost(PostReqDTO post){
 		Post postEnt = modelMapper.map(post, Post.class);
-		postEnt.setUser(userRepo.findById(post.getUserId()).get());
+		User user = userRepo.findById(post.getUserId()).get();
+		postEnt.setUser(user);
+		postEnt.getCar().setUser(user);
 		postEnt = postRepo.save(postEnt);
 		return modelMapper.map(postEnt,PostResDTO.class);
 	}

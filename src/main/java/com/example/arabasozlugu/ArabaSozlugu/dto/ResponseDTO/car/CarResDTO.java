@@ -1,4 +1,4 @@
-package com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO;
+package com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.car;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
@@ -20,7 +20,4 @@ public class CarResDTO {
 	private String silindirHacmi;
 	private String beygir;
 	private String yas;
-	private User user;
-	private Post post;	
-
 }

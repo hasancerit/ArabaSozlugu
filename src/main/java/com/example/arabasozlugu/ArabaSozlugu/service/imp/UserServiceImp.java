@@ -2,12 +2,13 @@ package com.example.arabasozlugu.ArabaSozlugu.service.imp;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.LoginUserReqDTO;
-import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.SingupUserReqDTO;
-import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.UserReqDTO;
-import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.UserResDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.LoginUserReqDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.SingupUserReqDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.UserReqDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.user.UserResDTO;
 import com.example.arabasozlugu.ArabaSozlugu.exceptions.UserNotFoundException;
 import com.example.arabasozlugu.ArabaSozlugu.model.User;
 import com.example.arabasozlugu.ArabaSozlugu.repo.UserRepo;
@@ -49,6 +50,14 @@ public class UserServiceImp implements UserService{
 		}
 		
 		return modelMapper.map(userEnt,UserResDTO.class);
+	}
+	
+	@Override
+	public UserResDTO getUser(String id) {
+		User user = userRepo.findById(id).get();
+		System.out.println(user.getCars().size());
+	
+		return modelMapper.map(user,UserResDTO.class);
 	}
 	
 }
