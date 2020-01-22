@@ -18,7 +18,7 @@ public class PostResDTO {
 	private String userId;
 	private CarResDTO car;
 	
-	public void setUserId() {
+	public void setUserId() {	
 		userId = user.getId();
 	}
 }

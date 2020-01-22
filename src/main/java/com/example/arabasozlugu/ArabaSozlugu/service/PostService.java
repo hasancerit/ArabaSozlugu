@@ -15,4 +15,6 @@ public interface PostService {
 
 	PostResDTO delete(String id);
 
+	PostResDTO update(String id, PostReqDTO post);
+
 }

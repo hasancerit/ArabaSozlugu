@@ -47,4 +47,8 @@ public class PostController {
 	public ResponseEntity<PostResDTO> getAll(@PathVariable String id){
 		return new ResponseEntity<PostResDTO>(postService.delete(id),HttpStatus.OK);
 	}
+	@GetMapping("/update/{id}")
+	public ResponseEntity<PostResDTO> getAll(@PathVariable String id,@RequestBody PostReqDTO post){
+		return new ResponseEntity<PostResDTO>(postService.update(id,post),HttpStatus.OK);
+	}
 }

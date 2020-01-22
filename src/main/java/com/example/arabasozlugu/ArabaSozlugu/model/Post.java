@@ -31,10 +31,6 @@ public class Post {
 	private String aciklama;
 	private String fiyat;
 	
-	@JsonIgnore
-	@Transient
-	private String userId;
-	
 	@ManyToOne(fetch = FetchType.LAZY,cascade = {})
 	@JoinColumn
 	@JsonManagedReference

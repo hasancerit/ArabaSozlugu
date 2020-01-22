@@ -36,7 +36,9 @@ public class PostServiceImp implements PostService{
 		postEnt.setUser(user);
 		postEnt.getCar().setUser(user);
 		postEnt = postRepo.save(postEnt);
-		return modelMapper.map(postEnt,PostResDTO.class);
+		PostResDTO ret = modelMapper.map(postEnt,PostResDTO.class);
+		ret.setUserId();
+		return ret;
 	}
 
 	@Override
@@ -68,6 +70,22 @@ public class PostServiceImp implements PostService{
 		postRepo.delete(post);
 		
 		PostResDTO ret = modelMapper.map(post,PostResDTO.class);
+		ret.setUserId();
+		return ret;
+	}
+	
+	@Override
+	public PostResDTO update(String id,PostReqDTO post) {
+		Post eski = postRepo.findById(id).get();
+		Post yeni = modelMapper.map(post,Post.class);
+		
+		yeni.setUser(userRepo.findById(post.getUserId()).get());
+		yeni.setId(eski.getId());
+		yeni.getCar().setId(eski.getCar().getId());
+		yeni.getCar().setUser(yeni.getUser());
+		yeni = postRepo.save(yeni);
+		
+		PostResDTO ret = modelMapper.map(yeni,PostResDTO.class);
 		ret.setUserId();
 		return ret;
 	}
