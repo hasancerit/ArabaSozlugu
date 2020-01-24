@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,7 +29,9 @@ public class Car {
 	private String yakıt;
 	private String vites;
 	private String silindirHacmi;
+	
 	private String beygir;
+	
 	private String yas;
 
 	@ManyToOne(cascade = {},fetch = FetchType.LAZY)

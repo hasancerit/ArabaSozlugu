@@ -35,12 +35,12 @@ public class UserController {
 	public ResponseEntity<UserResDTO> signUp( @Valid @RequestBody SingupUserReqDTO user){
 		return new ResponseEntity<UserResDTO>(userService.signup(user),HttpStatus.OK);
 	}
-	
+/*	
 	@PostMapping("/login")
 	public ResponseEntity<UserResDTO> login(@Valid @RequestBody LoginUserReqDTO user){
 		return new ResponseEntity<UserResDTO>(userService.login(user),HttpStatus.OK);
 	}
-	
+	*/	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<UserResDTO> getUser(@PathVariable String id){
 		return new ResponseEntity<UserResDTO>(userService.getUser(id),HttpStatus.OK);

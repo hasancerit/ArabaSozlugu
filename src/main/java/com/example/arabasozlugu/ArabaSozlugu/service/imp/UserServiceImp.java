@@ -6,6 +6,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.LoginUserReqDTO;
@@ -24,16 +25,20 @@ public class UserServiceImp implements UserService{
 	UserRepo userRepo;
 	PostRepo postRepo;
 	ModelMapper modelMapper;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	
 	@Autowired
-	public UserServiceImp(UserRepo userRepo,PostRepo postRepo,ModelMapper modelMapper) {
+	public UserServiceImp(UserRepo userRepo,PostRepo postRepo,ModelMapper modelMapper,BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.userRepo = userRepo;
 		this.postRepo = postRepo;
 		this.modelMapper = modelMapper;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
 	@Override
 	public UserResDTO signup(SingupUserReqDTO user){
+        user.setPass(bCryptPasswordEncoder.encode(user.getPass()));
 		User userEnt = userRepo.save(modelMapper.map(user,User.class));
 		try {
 			userEnt = userRepo.save(userEnt);
@@ -55,6 +60,9 @@ public class UserServiceImp implements UserService{
 		}
 		if(userEnt == null) {
 			throw new UserNotFoundException("Gecersiz Username",user);
+		}
+		if(!(userEnt.getPass().equals(user.getPass()))) {
+			//Sifre yanlis
 		}
 		UserResDTO userResp = modelMapper.map(userEnt,UserResDTO.class); 
 		userResp.setPostsUserId();
