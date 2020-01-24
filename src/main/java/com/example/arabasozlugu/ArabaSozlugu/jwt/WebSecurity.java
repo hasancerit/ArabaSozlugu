@@ -5,9 +5,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -18,8 +16,8 @@ import com.example.arabasozlugu.ArabaSozlugu.utils.SecurityConstants;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter{
-	@Autowired
-	private UserDetailsService userDetailsService;
+	/*@Autowired
+	private UserDetailsService userDetailsService;*/
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -36,14 +34,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 	                // this disables session creation on Spring Security
 	                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	    }
-
+/*
 	    @Override
 	    public void configure(AuthenticationManagerBuilder auth) throws Exception {
 			 System.out.println("conf2");
 			 //Auth işlemlerinde şifre karşılaştırması için, bu servisi kullan.
 	        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
 	    }
-
+*/
 	    
 	    
 	  @Bean
