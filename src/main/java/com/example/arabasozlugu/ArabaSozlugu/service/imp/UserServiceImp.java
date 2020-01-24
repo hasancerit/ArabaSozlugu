@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.LoginUserReqDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.SingupUserReqDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.UserReqDTO;import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.post.PostResDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.user.JWTUserResDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.user.UserResDTO;
 import com.example.arabasozlugu.ArabaSozlugu.exceptions.UserNotFoundException;
+import com.example.arabasozlugu.ArabaSozlugu.jwt.JWTUtil;
 import com.example.arabasozlugu.ArabaSozlugu.model.Post;
 import com.example.arabasozlugu.ArabaSozlugu.model.User;
 import com.example.arabasozlugu.ArabaSozlugu.repo.PostRepo;
@@ -56,7 +58,7 @@ public class UserServiceImp implements UserService{
 	}
 	
 	@Override
-	public UserResDTO login(LoginUserReqDTO user) {
+	public JWTUserResDTO login(LoginUserReqDTO user) {
 		User userEnt = null;
 		try {
 			userEnt = userRepo.findByUser(user.getUser());
@@ -67,18 +69,12 @@ public class UserServiceImp implements UserService{
 			throw new UserNotFoundException("Gecersiz Username",user);
 		}
 		if((userEnt.getPass().equals(user.getPass()))) {			
-			UserResDTO userResp = modelMapper.map(userEnt,UserResDTO.class); 
+			JWTUserResDTO userResp = modelMapper.map(userEnt,JWTUserResDTO.class); 
 			
-			String token = Jwts.builder()
-	                .setSubject(userResp.getUser())
-	                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-	                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
-	                .compact();
-			userResp.setToken(SecurityConstants.TOKEN_PREFIX + token);
-			
-			userResp.setPostsUserId();
+			String token = JWTUtil.generateToken(userResp);
 			return userResp;
 		}
+		//throw yanlis sifre
 		return null;
 	}
 	

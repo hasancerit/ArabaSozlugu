@@ -1,4 +1,4 @@
-package com.example.arabasozlugu.ArabaSozlugu.jwt;
+package com.example.arabasozlugu.ArabaSozlugu.jwt.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +23,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 	
 	 @Override
 	    protected void configure(HttpSecurity http) throws Exception {
-		 System.out.println("conf1");
 	        http.cors().and().csrf().disable().authorizeRequests()
 	                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
 	                .antMatchers(HttpMethod.POST, "/user/login").permitAll()

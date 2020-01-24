@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.LoginUserReqDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.SingupUserReqDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.UserReqDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.user.JWTUserResDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.user.UserResDTO;
 import com.example.arabasozlugu.ArabaSozlugu.service.UserService;
 
@@ -37,8 +38,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<UserResDTO> login(@Valid @RequestBody LoginUserReqDTO user){
-		return new ResponseEntity<UserResDTO>(userService.login(user),HttpStatus.OK);
+	public ResponseEntity<JWTUserResDTO> login(@Valid @RequestBody LoginUserReqDTO user){
+		return new ResponseEntity<JWTUserResDTO>(userService.login(user),HttpStatus.OK);
 	}
 	
 	@GetMapping("/get/{id}")

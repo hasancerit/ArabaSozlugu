@@ -5,13 +5,14 @@ import java.util.List;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.LoginUserReqDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.SingupUserReqDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.RequestDTO.user.UserReqDTO;
+import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.user.JWTUserResDTO;
 import com.example.arabasozlugu.ArabaSozlugu.dto.ResponseDTO.user.UserResDTO;
 
 public interface UserService {
 
 	UserResDTO signup(SingupUserReqDTO user);
 
-	UserResDTO login(LoginUserReqDTO user);
+	JWTUserResDTO login(LoginUserReqDTO user);
 
 	UserResDTO getUser(String id);
 
