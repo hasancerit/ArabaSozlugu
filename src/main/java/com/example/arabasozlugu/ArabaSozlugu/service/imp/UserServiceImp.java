@@ -7,6 +7,8 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +34,18 @@ public class UserServiceImp implements UserService{
 	UserRepo userRepo;
 	PostRepo postRepo;
 	ModelMapper modelMapper;
+	JavaMailSender mailSender;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	
 	@Autowired
-	public UserServiceImp(UserRepo userRepo,PostRepo postRepo,ModelMapper modelMapper,BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserServiceImp(UserRepo userRepo,PostRepo postRepo,ModelMapper modelMapper,
+			BCryptPasswordEncoder bCryptPasswordEncoder,JavaMailSender mailSender) {
 		this.userRepo = userRepo;
 		this.postRepo = postRepo;
 		this.modelMapper = modelMapper;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.mailSender = mailSender;
 	}
 	
 	@Override
@@ -54,7 +59,21 @@ public class UserServiceImp implements UserService{
 		}
 		UserResDTO userResp = modelMapper.map(userEnt,UserResDTO.class); 
 		userResp.setPostsUserId();
+		sendMail("hasan__cerit@hotmail.com", "Subject","Text");
 		return userResp;
+	}
+	
+	public void sendMail(String person,String subj,String test){
+        System.out.println("Sending Email...");
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(person);
+        msg.setSubject(subj);
+        msg.setText(test);
+
+        mailSender.send(msg);	
+        System.out.println("Done");
+
 	}
 	
 	@Override
