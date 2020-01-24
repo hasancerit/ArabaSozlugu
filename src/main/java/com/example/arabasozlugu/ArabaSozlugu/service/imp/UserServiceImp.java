@@ -1,6 +1,7 @@
 package com.example.arabasozlugu.ArabaSozlugu.service.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -19,6 +20,10 @@ import com.example.arabasozlugu.ArabaSozlugu.model.User;
 import com.example.arabasozlugu.ArabaSozlugu.repo.PostRepo;
 import com.example.arabasozlugu.ArabaSozlugu.repo.UserRepo;
 import com.example.arabasozlugu.ArabaSozlugu.service.UserService;
+import com.example.arabasozlugu.ArabaSozlugu.utils.SecurityConstants;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UserServiceImp implements UserService{
@@ -38,7 +43,7 @@ public class UserServiceImp implements UserService{
 	
 	@Override
 	public UserResDTO signup(SingupUserReqDTO user){
-        user.setPass(bCryptPasswordEncoder.encode(user.getPass()));
+       // user.setPass(bCryptPasswordEncoder.encode(user.getPass()));
 		User userEnt = userRepo.save(modelMapper.map(user,User.class));
 		try {
 			userEnt = userRepo.save(userEnt);
@@ -61,12 +66,20 @@ public class UserServiceImp implements UserService{
 		if(userEnt == null) {
 			throw new UserNotFoundException("Gecersiz Username",user);
 		}
-		if(!(userEnt.getPass().equals(user.getPass()))) {
-			//Sifre yanlis
+		if((userEnt.getPass().equals(user.getPass()))) {			
+			UserResDTO userResp = modelMapper.map(userEnt,UserResDTO.class); 
+			
+			String token = Jwts.builder()
+	                .setSubject(userResp.getUser())
+	                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+	                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET.getBytes())
+	                .compact();
+			userResp.setToken(SecurityConstants.TOKEN_PREFIX + token);
+			
+			userResp.setPostsUserId();
+			return userResp;
 		}
-		UserResDTO userResp = modelMapper.map(userEnt,UserResDTO.class); 
-		userResp.setPostsUserId();
-		return userResp;
+		return null;
 	}
 	
 	@Override

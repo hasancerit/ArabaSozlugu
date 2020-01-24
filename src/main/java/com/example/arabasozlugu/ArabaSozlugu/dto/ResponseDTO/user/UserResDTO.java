@@ -25,4 +25,6 @@ public class UserResDTO {
 			p.setUserId();
 		}
 	}
+	
+	private String token;
 }
